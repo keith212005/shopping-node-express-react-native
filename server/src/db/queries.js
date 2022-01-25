@@ -1,5 +1,3 @@
-const routes = require('./utils/constants');
-
 const Pool = require('pg').Pool;
 const pool = new Pool({
   user: 'postgres',
@@ -11,7 +9,7 @@ const pool = new Pool({
 
 const getUsers = (request, response) => {
   pool.query('Select * from users order by id asc', (error, result) => {
-    if (err) throw err;
+    if (error) throw error;
     response.status(200).json(result.rows);
   });
 };
@@ -27,11 +25,15 @@ const getUserById = (request, response) => {
 const createUser = (request, response) => {
   const { name, email } = request.body;
   pool.query(
-    'INSERT INTO users (name, email) VALUES ($1, $2)',
+    'INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *',
     [name, email],
-    (error, results) => {
-      if (error) throw error;
-      response.status(201).send(`User added with ID: ${result.insertId}`);
+    (error, result) => {
+      if (error) {
+        const err = { code: error.code, detail: error.detail };
+        response.status(500).send(err);
+        return;
+      }
+      response.status(201).send(`User added with ID: ${result}`);
     }
   );
 };
@@ -43,7 +45,7 @@ const updateUser = (request, response) => {
   pool.query(
     'UPDATE users SET name = $1, email = $2 WHERE id = $3',
     [name, email, id],
-    (error, results) => {
+    (error, result) => {
       if (error) throw error;
       response.status(200).send(`User modified with ID: ${id}`);
     }
