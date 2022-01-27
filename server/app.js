@@ -1,21 +1,17 @@
+require('./src/config/createDB');
 const express = require('express');
 const app = express();
 app.use(express.json());
+const db = require('./src/config/db');
 
-const db = require('./src/db/queries');
+app.get(`/api`, (req, res) => res.send('API works....'));
 
-const port = process.env.PORT || 5000;
+app.get(`/api/users`, db.getUsers);
+app.get('/api/users/:id', db.getUserById);
+app.post('/api/users', db.createUser);
+app.put('/api/users/:id', db.updateUser);
+app.delete('/api/users/:id', db.deleteUser);
 
-app.get('/', (request, response) => {
-  response.json({ info: 'Node.js, Express, and Postgres API' });
-});
-
-app.get('/users', db.getUsers);
-app.get('/users/:id', db.getUserById);
-app.post('/users', db.createUser);
-app.put('/users/:id', db.updateUser);
-app.put('/users/:id', db.deleteUser);
-
-app.listen(port, () => {
-  console.log(`App running on port ${port}.`);
+app.listen(3000, () => {
+  console.log(`API running on port 3000.`);
 });
