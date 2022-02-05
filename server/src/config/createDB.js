@@ -17,7 +17,6 @@ const initializeDBAndCreateTables = async () => {
 initializeDBAndCreateTables();
 
 function createDB() {
-  console.log('create db called....');
   return new Promise((resolve, reject) => {
     pgtools.createdb(
       {
@@ -31,7 +30,7 @@ function createDB() {
         if (err) {
           // console.error(err);
         }
-        console.log(`createDB function resolved result: ${res}`);
+        // console.log(`createDB function resolved result: ${res}`);
         resolve();
       }
     );

@@ -10,10 +10,14 @@
   "author": "Ketan Jingar",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
     "pg": "^8.7.1",
     "pgtools": "^0.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.8.0"
   }
 }
