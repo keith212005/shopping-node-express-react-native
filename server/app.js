@@ -10,7 +10,7 @@ const db = require('./src/services/database');
 // Set up Global configuration access
 const dotenv = require('dotenv');
 dotenv.config();
-let PORT = process.env.PORT || 5000;
+let PORT = process.env.PORT || 3001;
 
 console.log(process.env.API_URL);
 
@@ -22,6 +22,4 @@ app.get(`/api/getTodos`, db.authenticateToken, db.getTodos);
 app.delete(`/api/deleteTodo`, db.authenticateToken, db.deleteTodo);
 app.post(`/api/updateTodo`, db.authenticateToken, db.updateTodo);
 
-app.listen(PORT, () => {
-  console.log(`Server is up and running on ${PORT} ...`);
-});
+app.listen(PORT, () => console.log(`Server is up and running on ${PORT} ...`));

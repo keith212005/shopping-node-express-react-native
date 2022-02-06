@@ -50,7 +50,6 @@ const logout = (req, res) => {
 const getTodos = async (req, res) => {
   const email = req.body.username;
   const todos = await getTodosFromDB(email);
-  console.log('todos>>>>>', todos);
 
   if (isEmpty(todos))
     return res.status(200).send({ success: false, message: 'No record found' });
@@ -61,22 +60,19 @@ const getTodos = async (req, res) => {
 // delete Todod
 const deleteTodo = async (req, res) => {
   const todoId = req.body.id;
-  console.log(todoId);
-  deleteTodoFromDB(todoId).then((result) => {
-    console.log('dele todo result', result);
+  deleteTodoFromDB(todoId).then(() => {
     res.status(200).send({ success: true, message: 'Record deleted.' });
   });
 };
 
 // update todo
 const updateTodo = (req, res) => {
-  updateTodoInDB(req.body).then((result) => {
+  updateTodoInDB(req.body).then(() => {
     res.status(200).send('Record updated.');
   });
 };
 
 const register = async (request, response) => {
-  // console.log('got user data in response>>>>>>', request.body);
   const { firstName, lastName, email, password } = request.body;
 
   // password comming in the request needs to be hashed before storing in DB
@@ -149,7 +145,7 @@ function getTodosFromDB(email) {
 }
 
 function deleteTodoFromDB(id) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     pool.query(`delete from todo where id=$1;`, [id], (err, result2) =>
       resolve(result2.rows)
     );
@@ -157,15 +153,12 @@ function deleteTodoFromDB(id) {
 }
 
 function updateTodoInDB(todo) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const { id, task, due_date, done } = todo;
     pool.query(
       `update todo set task=$1, due_date=$2, done=$3 where id=$4;`,
       [task, due_date, done, id],
-      (err, result2) => {
-        console.log('update db result>>>>', result2.rows);
-        resolve(result2.rows);
-      }
+      (err, result2) => resolve(result2.rows)
     );
   });
 }
