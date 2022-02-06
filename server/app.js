@@ -19,6 +19,8 @@ app.post(`/api/register`, db.register);
 app.post(`/api/login`, db.login);
 app.delete(`/api/logout`, db.logout);
 app.get(`/api/getTodos`, db.authenticateToken, db.getTodos);
+app.delete(`/api/deleteTodo`, db.authenticateToken, db.deleteTodo);
+app.post(`/api/updateTodo`, db.authenticateToken, db.updateTodo);
 
 app.listen(PORT, () => {
   console.log(`Server is up and running on ${PORT} ...`);

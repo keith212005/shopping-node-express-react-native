@@ -58,6 +58,23 @@ const getTodos = async (req, res) => {
   res.status(200).send({ success: true, data: todos });
 };
 
+// delete Todod
+const deleteTodo = async (req, res) => {
+  const todoId = req.body.id;
+  console.log(todoId);
+  deleteTodoFromDB(todoId).then((result) => {
+    console.log('dele todo result', result);
+    res.status(200).send({ success: true, message: 'Record deleted.' });
+  });
+};
+
+// update todo
+const updateTodo = (req, res) => {
+  updateTodoInDB(req.body).then((result) => {
+    res.status(200).send('Record updated.');
+  });
+};
+
 const register = async (request, response) => {
   // console.log('got user data in response>>>>>>', request.body);
   const { firstName, lastName, email, password } = request.body;
@@ -131,6 +148,28 @@ function getTodosFromDB(email) {
   });
 }
 
+function deleteTodoFromDB(id) {
+  return new Promise((resolve, reject) => {
+    pool.query(`delete from todo where id=$1;`, [id], (err, result2) =>
+      resolve(result2.rows)
+    );
+  });
+}
+
+function updateTodoInDB(todo) {
+  return new Promise((resolve, reject) => {
+    const { id, task, due_date, done } = todo;
+    pool.query(
+      `update todo set task=$1, due_date=$2, done=$3 where id=$4;`,
+      [task, due_date, done, id],
+      (err, result2) => {
+        console.log('update db result>>>>', result2.rows);
+        resolve(result2.rows);
+      }
+    );
+  });
+}
+
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -161,5 +200,7 @@ module.exports = {
   getUserByEmail,
   register,
   getTodos,
+  deleteTodo,
+  updateTodo,
   authenticateToken,
 };

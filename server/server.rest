@@ -1,0 +1,63 @@
+### CHECK IF API IS WORKING
+GET http://localhost:5000/api
+
+### LOGIN API
+POST http://localhost:5000/api/login
+Content-Type: application/json
+
+{
+    "username":"kjj@gmail.com",
+    "password":"Keith26880@"
+}
+
+### NEW USER
+POST http://localhost:5000/api/register
+Content-Type: application/json
+
+{
+    "firstName":"Dhruv", 
+    "lastName":"Sutail", 
+    "email":"dh@gmail.com", 
+    "password":"dh"
+}
+
+
+### LOGUT USER
+DELETE http://localhost:5000/api/logout
+Content-Type: application/json
+
+{
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGhAZ21haWwuY29tIiwiaWF0IjoxNjQ0MTUxMzI5fQ.hcM8_osJZZ3aVOox7xW7dCHYMtsPNUe7aq3AcJF_SFE"
+}
+
+### GET ALL TODOS
+GET http://localhost:5000/api/getTodos
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoia2pqQGdtYWlsLmNvbSIsImlhdCI6MTY0NDE2ODQwNCwiZXhwIjoxNjQ0MTY5MDA0fQ.z0GHYH1TGxy0iaaTsfj7II6m59eTKUTFcTYu-jVPWqw
+Content-Type: application/json
+
+{
+    "username":"kjj@gmail.com"
+}
+
+### DELETE TODO
+DELETE http://localhost:5000/api/deleteTodo
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoia2pqQGdtYWlsLmNvbSIsImlhdCI6MTY0NDE2NzMxNSwiZXhwIjoxNjQ0MTY3OTE1fQ.BSIjo8x2EjCJ1FlxWVYngbWochG8tPzRP6tCXtonQaU
+
+{
+    "id":6
+}
+
+### update TODO
+POST http://localhost:5000/api/updateTodo
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoia2pqQGdtYWlsLmNvbSIsImlhdCI6MTY0NDE2ODQwNCwiZXhwIjoxNjQ0MTY5MDA0fQ.z0GHYH1TGxy0iaaTsfj7II6m59eTKUTFcTYu-jVPWqw
+
+{
+    "id":5,
+    "task":"Learn JS",
+    "due_date": "{{$localDatetime iso8601}}",
+    "done":true
+}
+
+
