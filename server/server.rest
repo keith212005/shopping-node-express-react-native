@@ -1,0 +1,42 @@
+### CHECK IF API IS WORKING
+GET http://localhost:5000/api
+
+### LOGIN API
+POST http://localhost:5000/api/login
+Content-Type: application/json
+
+{
+    "username":"dh@gmail.com",
+    "password":"dh"
+}
+
+### NEW USER
+POST http://localhost:5000/api/register
+Content-Type: application/json
+
+{
+    "firstName":"Dhruv", 
+    "lastName":"Sutail", 
+    "email":"dh@gmail.com", 
+    "password":"dh"
+}
+
+
+### LOGUT USER
+DELETE http://localhost:5000/api/logout
+Content-Type: application/json
+
+{
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGhAZ21haWwuY29tIiwiaWF0IjoxNjQ0MTUxMzI5fQ.hcM8_osJZZ3aVOox7xW7dCHYMtsPNUe7aq3AcJF_SFE"
+}
+
+### GET ALL TODOS
+GET http://localhost:5000/api/getTodos
+Authorization: 
+Content-Type: application/json
+
+{
+    "username":"kjj@gmail.com"
+}
+
+

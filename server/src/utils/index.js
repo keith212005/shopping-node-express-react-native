@@ -11,11 +11,8 @@ const getHashForPassword = (myPlaintextPassword) => {
 };
 
 const isPasswordMatch = (password, hash) => {
-  return new Promise((resolve, reject) => {
-    bcrypt.compare(password, hash).then(function (result) {
-      if (result) resolve(result);
-      reject(result);
-    });
+  return new Promise((resolve) => {
+    bcrypt.compare(password, hash).then((result) => resolve(result));
   });
 };
 

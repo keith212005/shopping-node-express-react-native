@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 app.use(cors());
-const db = require('./src/services/db');
+const db = require('./src/services/database');
 
 // Set up Global configuration access
 const dotenv = require('dotenv');
@@ -16,7 +16,9 @@ console.log(process.env.API_URL);
 
 app.get(`/api`, (req, res) => res.send('API works....'));
 app.post(`/api/register`, db.register);
-app.post(`/api/authenticate`, db.authenticate);
+app.post(`/api/login`, db.login);
+app.delete(`/api/logout`, db.logout);
+app.get(`/api/getTodos`, db.authenticateToken, db.getTodos);
 
 app.listen(PORT, () => {
   console.log(`Server is up and running on ${PORT} ...`);
