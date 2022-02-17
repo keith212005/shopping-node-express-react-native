@@ -9,17 +9,21 @@ export const Input = ({
   required,
 }) => {
   return (
-    <Form.Group className="mb-3">
-      <Form.Label>{label}</Form.Label>
-      <Form.Control
-        type={type}
-        placeholder={placeholder}
-        style={style}
-        required={required}
-      />
-      {valueObject?.error.errorText && (
-        <Form.Text className="text-muted">{valueObject.error.text}</Form.Text>
-      )}
-    </Form.Group>
+    <div>
+      <Form.Group className="mb-3">
+        <Form.Label style={{ width: '100%', textAlign: 'left' }}>
+          {label}
+        </Form.Label>
+        <Form.Control
+          type={type}
+          placeholder={placeholder}
+          style={style}
+          required={required}
+        />
+        {valueObject?.error.errorText && (
+          <Form.Text className="text-muted">{valueObject.error.text}</Form.Text>
+        )}
+      </Form.Group>
+    </div>
   );
 };

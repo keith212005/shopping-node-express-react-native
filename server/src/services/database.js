@@ -14,9 +14,10 @@ const { getHashForPassword, isPasswordMatch } = require('../utils/index');
 const login = async (req, res) => {
   const { username, password } = req.body;
   const user = await getUserByEmail(username);
-
   if (isEmpty(user)) {
-    return res.status(200).send({ message: 'Account does not exists' });
+    return res
+      .status(200)
+      .send({ success: false, message: 'Account does not exists' });
   }
 
   try {
@@ -34,15 +35,18 @@ const login = async (req, res) => {
     });
     return;
   } catch (error) {
+    console.log('err in .login', error);
     res.sendStatus(500);
   }
+
+  res.end();
 };
 
 // get refreshToken from the user in request body
 const logout = (req, res) => {
   const refreshToken = req.body.token;
   deleteRefreshTokenFromDB(refreshToken).then(() => {
-    res.status(200).send({ success: true, message: 'User logout success' });
+    res.status(200).send({ success: true, message: 'User logout successful.' });
   });
 };
 
@@ -52,7 +56,9 @@ const getTodos = async (req, res) => {
   const todos = await getTodosFromDB(email);
 
   if (isEmpty(todos))
-    return res.status(200).send({ success: false, message: 'No record found' });
+    return res
+      .status(200)
+      .send({ success: false, message: 'No record found.' });
 
   res.status(200).send({ success: true, data: todos });
 };
@@ -60,15 +66,25 @@ const getTodos = async (req, res) => {
 // delete Todod
 const deleteTodo = async (req, res) => {
   const todoId = req.body.id;
-  deleteTodoFromDB(todoId).then(() => {
-    res.status(200).send({ success: true, message: 'Record deleted.' });
-  });
+  deleteTodoFromDB(todoId).then(() =>
+    res.status(200).send({ success: true, message: 'Record deleted.' })
+  );
 };
 
 // update todo
 const updateTodo = (req, res) => {
-  updateTodoInDB(req.body).then(() => {
-    res.status(200).send('Record updated.');
+  updateTodoInDB(req.body).then(() => res.status(200).send('Record updated.'));
+};
+
+// Get user info
+const getUserInfo = (req, res) => {
+  const { username } = req.body;
+  console.log('username from client>>>>', username);
+  getUserByEmail(username).then((user) => {
+    console.log('userInfo>>>>>', user);
+    if (isEmpty(user))
+      return res.status(200).send({ message: 'No Record found' });
+    res.status(200).send({ success: true, data: user });
   });
 };
 
@@ -85,10 +101,9 @@ const register = async (request, response) => {
       // returning general error but have separation concern about same email used error send response
       if (error) {
         const err = { code: error.code, detail: error.detail };
-        response.status(500).send(err);
-        return;
+        return response.status(500).send(err);
       }
-      // if record is inserted successfully return data with status 200
+
       const data = {
         success: true,
         message: 'User registered successfully.',
@@ -98,13 +113,15 @@ const register = async (request, response) => {
   );
 };
 
-async function getUserByEmail(username) {
+async function getUserByEmail(email) {
   return new Promise((resolve, reject) => {
     pool.query(
-      `Select * from users where email='${username}'`,
+      `Select * from users where email=$1`,
+      [email],
       (error, result) => {
         if (error) reject(error);
-        resolve(result.rows[0]);
+        const userInfo = result && result.rows[0];
+        resolve(userInfo);
       }
     );
   });
@@ -190,10 +207,10 @@ module.exports = {
   pool,
   login,
   logout,
-  getUserByEmail,
   register,
   getTodos,
   deleteTodo,
   updateTodo,
   authenticateToken,
+  getUserInfo,
 };

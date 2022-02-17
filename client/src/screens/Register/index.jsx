@@ -1,7 +1,7 @@
 import { Form } from 'react-bootstrap';
-import { Center } from '../../Components/Wrappers/Center';
-import { Input } from '../../Components/Input';
-import { SubmitButton } from '../../Components/SubmitButton';
+import { Center } from '../../components/Wrappers/Center';
+import { Input } from '../../components/Input';
+import { SubmitButton } from '../../components/SubmitButton';
 import { useState } from 'react';
 
 export const Register = () => {

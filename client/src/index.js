@@ -1,40 +1,21 @@
-import { render } from 'react-dom';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Login } from './Pages/Login';
-import { LandingPage } from './Pages/LandingPage';
-import { Dashboards } from './Pages/Dashboard';
-import { Register } from './Pages/Register';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
 
-const rootElement = document.getElementById('root');
-
-const LandingStack = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<LandingPage />}></Route>
-      <Route path="login" element={<Login />} />
-      <Route path="signup" element={<Register />} />
-    </Routes>
-  );
-};
-
-const DashboardStack = () => {
-  return (
-    <Routes>
-      <Route path="/dashboard" element={<Dashboards />}>
-        {/* <Route path=":userInfo" element={<Dashboards />} /> */}
-      </Route>
-    </Routes>
-  );
-};
-
-render(
-  <>
+ReactDOM.render(
+  <React.StrictMode>
     <BrowserRouter>
-      <LandingStack />
-      <DashboardStack />
+      <App />
     </BrowserRouter>
-  </>,
-  rootElement
+  </React.StrictMode>,
+  document.getElementById('root')
 );
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();

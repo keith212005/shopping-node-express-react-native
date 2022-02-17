@@ -21,5 +21,6 @@ app.delete(`/api/logout`, db.logout);
 app.get(`/api/getTodos`, db.authenticateToken, db.getTodos);
 app.delete(`/api/deleteTodo`, db.authenticateToken, db.deleteTodo);
 app.post(`/api/updateTodo`, db.authenticateToken, db.updateTodo);
+app.post(`/api/getUserInfo`, db.authenticateToken, db.getUserInfo);
 
 app.listen(PORT, () => console.log(`Server is up and running on ${PORT} ...`));

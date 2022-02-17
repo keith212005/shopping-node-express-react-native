@@ -27,12 +27,12 @@ DELETE http://localhost:5000/api/logout
 Content-Type: application/json
 
 {
-    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZGhAZ21haWwuY29tIiwiaWF0IjoxNjQ0MTUxMzI5fQ.hcM8_osJZZ3aVOox7xW7dCHYMtsPNUe7aq3AcJF_SFE"
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoia2pqQGdtYWlsLmNvbSIsImlhdCI6MTY0NDgyNjA3NiwiZXhwIjoxNjQ0ODI2Njc2fQ.h6i2no8isKzR_86jUXXDaTDReSts_Bzsvhne7ZVSzgQ"
 }
 
 ### GET ALL TODOS
 GET http://localhost:5000/api/getTodos
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoia2pqQGdtYWlsLmNvbSIsImlhdCI6MTY0NDE2ODQwNCwiZXhwIjoxNjQ0MTY5MDA0fQ.z0GHYH1TGxy0iaaTsfj7II6m59eTKUTFcTYu-jVPWqw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoia2pqQGdtYWlsLmNvbSIsImlhdCI6MTY0NDgyNjA3NiwiZXhwIjoxNjQ0ODI2Njc2fQ.h6i2no8isKzR_86jUXXDaTDReSts_Bzsvhne7ZVSzgQ
 Content-Type: application/json
 
 {
@@ -60,4 +60,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoia2pqQGdtY
     "done":true
 }
 
+###
+POST http://localhost:5000/api/getUserInfo
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoia2pqQGdtYWlsLmNvbSIsImlhdCI6MTY0NTA4MzE4NywiZXhwIjoxNjQ1MDgzNzg3fQ.aofuYRQmZr4DcZM5QD9zZJFoJod_1oc2bFp9BECLklU
 
+{
+    "username":"kjj@gmail.com"
+}
